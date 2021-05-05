@@ -11,8 +11,8 @@ import (
 type Type string
 
 const (
-	TypeBuy  Type = "BUY"
-	TypeSell Type = "SELL"
+	TypeBuy  Type = "buy"
+	TypeSell Type = "sell"
 )
 
 var AllType = []Type{

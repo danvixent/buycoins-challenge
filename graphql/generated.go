@@ -131,20 +131,18 @@ func (ec *executionContext) introspectType(name string) (*introspection.Type, er
 }
 
 var sources = []*ast.Source{
-	{Name: "schema.graphql", Input: `type Query {
+	{Name: "schema.graphql", Input: `enum Type {
+    buy
+    sell
+}
+
+type Query {
     calculatePrice(
         type: Type
         margin: Float
         exchangeRate: Float
     ): Float
-}
-
-
-enum Type {
-    BUY
-    SELL
-}
-`, BuiltIn: false},
+}`, BuiltIn: false},
 }
 var parsedSchema = gqlparser.MustLoadSchema(sources...)
 
@@ -173,7 +171,7 @@ func (ec *executionContext) field_Query_calculatePrice_args(ctx context.Context,
 	var arg0 *Type
 	if tmp, ok := rawArgs["type"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("type"))
-		arg0, err = ec.unmarshalOType2ᚖgithubᚗcomᚋdanvixentᚋbuycoinsᚑchallengeᚋgraphqlᚐType(ctx, tmp)
+		arg0, err = ec.unmarshalOType2ᚖgithubᚗcomᚋdanvixentᚋbuycoins_challengeᚋgraphqlᚐType(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -2100,7 +2098,7 @@ func (ec *executionContext) marshalOString2ᚖstring(ctx context.Context, sel as
 	return graphql.MarshalString(*v)
 }
 
-func (ec *executionContext) unmarshalOType2ᚖgithubᚗcomᚋdanvixentᚋbuycoinsᚑchallengeᚋgraphqlᚐType(ctx context.Context, v interface{}) (*Type, error) {
+func (ec *executionContext) unmarshalOType2ᚖgithubᚗcomᚋdanvixentᚋbuycoins_challengeᚋgraphqlᚐType(ctx context.Context, v interface{}) (*Type, error) {
 	if v == nil {
 		return nil, nil
 	}
@@ -2109,7 +2107,7 @@ func (ec *executionContext) unmarshalOType2ᚖgithubᚗcomᚋdanvixentᚋbuycoin
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalOType2ᚖgithubᚗcomᚋdanvixentᚋbuycoinsᚑchallengeᚋgraphqlᚐType(ctx context.Context, sel ast.SelectionSet, v *Type) graphql.Marshaler {
+func (ec *executionContext) marshalOType2ᚖgithubᚗcomᚋdanvixentᚋbuycoins_challengeᚋgraphqlᚐType(ctx context.Context, sel ast.SelectionSet, v *Type) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}

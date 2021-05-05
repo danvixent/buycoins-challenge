@@ -46,7 +46,7 @@ func main() {
 	<-quit
 	log.Print("Shutdown Server ...")
 
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 1*time.Second)
 	defer cancel()
 	if err := srv.Shutdown(ctx); err != nil {
 		log.Panic("Server Shutdown: err=%v", err)

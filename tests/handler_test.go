@@ -12,10 +12,6 @@ import (
 )
 
 func TestCalculatePrice(t *testing.T) {
-	const baseQuery = `query{
-		calculatePrice(type: %s,margin: %f,exchangeRate: %f)
-	}`
-
 	type args struct {
 		typeArg      string
 		margin       float64
@@ -58,6 +54,11 @@ func TestCalculatePrice(t *testing.T) {
 			wantErr:  false,
 		},
 	}
+
+	const baseQuery = `query{
+		calculatePrice(type: %s,margin: %f,exchangeRate: %f)
+	}`
+
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 

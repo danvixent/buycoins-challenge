@@ -1,13 +1,12 @@
+enum Type {
+    buy
+    sell
+}
+
 type Query {
     calculatePrice(
         type: Type
         margin: Float
         exchangeRate: Float
     ): Float
-}
-
-
-enum Type {
-    BUY
-    SELL
 }

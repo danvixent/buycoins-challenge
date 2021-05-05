@@ -38,7 +38,7 @@ func TestMain(m *testing.M) {
 		}
 	}()
 
-	// allow the routine above start the server
+	// allow the goroutine above start the server
 	time.Sleep(time.Second)
 
 	// run the tests

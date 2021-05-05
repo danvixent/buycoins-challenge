@@ -1,0 +1,60 @@
+package graphql
+
+import (
+	"log"
+	"net/http"
+
+	"github.com/friendsofgo/graphiql"
+
+	"github.com/99designs/gqlgen/graphql/handler"
+	"github.com/danvixent/buycoins_challenge/handlers/margin"
+)
+
+type Handler struct {
+	marginHandler *margin.Handler
+}
+
+const (
+	graphqlEndpoint  = "/graphql"
+	graphiqlEndpoint = "/graphiql"
+)
+
+func NewHandler(marginHandler *margin.Handler) *Handler {
+	return &Handler{marginHandler: marginHandler}
+}
+
+func (h *Handler) graphqlHandler() http.HandlerFunc {
+	c := Config{
+		Resolvers: &Resolver{marginHandler: h.marginHandler},
+	}
+
+	s := handler.NewDefaultServer(NewExecutableSchema(c))
+
+	return s.ServeHTTP
+}
+
+func (h *Handler) graphiqlHandler() http.HandlerFunc {
+	graphiqlHandler, err := graphiql.NewGraphiqlHandler(graphqlEndpoint)
+	if err != nil {
+		log.Panic(err)
+	}
+	return graphiqlHandler.ServeHTTP
+}
+
+func (h *Handler) SetupRoutes(mux *http.ServeMux) {
+	graphqlHandler := h.graphqlHandler()
+	mux.HandleFunc(graphqlEndpoint, handleMethod(http.MethodPost, graphqlHandler))
+
+	graphiqlHandler := h.graphiqlHandler()
+	mux.HandleFunc(graphiqlEndpoint, handleMethod(http.MethodGet, graphiqlHandler))
+}
+
+func handleMethod(method string, handler http.Handler) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != method {
+			http.Error(w, "method not allowed", http.StatusBadGateway)
+			return
+		}
+		handler.ServeHTTP(w, r)
+	}
+}

@@ -1,3 +1,5 @@
+// +heroku goVersion go1.15
+
 module github.com/danvixent/buycoins_challenge
 
 go 1.16

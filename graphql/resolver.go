@@ -17,10 +17,6 @@ func (r *Resolver) Query() QueryResolver {
 	return &queryResolver{r}
 }
 
-func (r Resolver) __Directive() __DirectiveResolver {
-	return nil
-}
-
 type queryResolver struct{ *Resolver }
 
 func (q *queryResolver) CalculatePrice(ctx context.Context, typeArg *Type, margin *float64, exchangeRate *float64) (*float64, error) {

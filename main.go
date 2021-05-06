@@ -48,16 +48,16 @@ func main() {
 	// kill -9 is syscall. SIGKILL but can"t be catch, so no need to add it
 	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
 	<-quit
-	log.Print("Shutdown Server ...")
+	log.Print("shutdown server ...")
 
 	ctx, cancel := context.WithTimeout(context.Background(), 1*time.Second)
 	defer cancel()
 	if err := srv.Shutdown(ctx); err != nil {
-		log.Panic("Server Shutdown: err=%v", err)
+		log.Fatalf("server shutdown failed: %v", err)
 	}
 	select {
 	case <-ctx.Done():
 		log.Print("timeout of 1 seconds.")
 	}
-	log.Print("Server exiting")
+	log.Print("server exiting")
 }

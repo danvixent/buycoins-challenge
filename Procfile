@@ -1,1 +1,1 @@
-web: bin/buycoins-ch
+web: bin/buycoins-challenge

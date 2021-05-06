@@ -14,7 +14,7 @@ import (
 
 const (
 	port    = "8081"
-	baseURL = "http://localhost:" + port
+	baseURL = "http://localhost:" + port + "/graphql"
 )
 
 func TestMain(m *testing.M) {

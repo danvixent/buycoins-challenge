@@ -79,7 +79,7 @@ func TestCalculatePrice(t *testing.T) {
 }
 
 func calculatePrice(body interface{}) (*http.Response, error) {
-	return POST(baseURL+"/graphql", serialize(body))
+	return POST(baseURL, serialize(body))
 }
 
 // serialize obj into json bytes

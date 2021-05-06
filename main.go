@@ -20,7 +20,11 @@ func main() {
 	mux := http.NewServeMux()
 	graphqlHandler.SetupRoutes(mux)
 
-	port := "8081"
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8081"
+	}
+
 	srv := &http.Server{
 		Addr:    ":" + port,
 		Handler: mux,

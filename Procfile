@@ -1,1 +1,1 @@
-web: bin/buycoins-challenge
+web: go run .

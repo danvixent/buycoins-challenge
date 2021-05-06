@@ -1,1 +1,1 @@
-web: go run .
+web: buycoins-challenge

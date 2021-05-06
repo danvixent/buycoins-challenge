@@ -42,19 +42,19 @@ func (h *Handler) graphiqlHandler() http.HandlerFunc {
 }
 
 func (h *Handler) SetupRoutes(mux *http.ServeMux) {
-	graphqlHandler := h.graphqlHandler()
-	mux.HandleFunc(graphqlEndpoint, handleMethod(http.MethodPost, graphqlHandler))
+	graphqlHandlerFunc := h.graphqlHandler()
+	mux.HandleFunc(graphqlEndpoint, handleMethod(http.MethodPost, graphqlHandlerFunc))
 
-	graphiqlHandler := h.graphiqlHandler()
-	mux.HandleFunc(graphiqlEndpoint, handleMethod(http.MethodGet, graphiqlHandler))
+	graphiqlHandlerFunc := h.graphiqlHandler()
+	mux.HandleFunc(graphiqlEndpoint, handleMethod(http.MethodGet, graphiqlHandlerFunc))
 }
 
-func handleMethod(method string, handler http.Handler) http.HandlerFunc {
+func handleMethod(method string, handlerFunc http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != method {
 			http.Error(w, "method not allowed", http.StatusBadGateway)
 			return
 		}
-		handler.ServeHTTP(w, r)
+		handlerFunc(w, r)
 	}
 }
